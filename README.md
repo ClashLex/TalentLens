@@ -1,109 +1,72 @@
-# 🎯 TalentLens AI — Intelligent Candidate Discovery
+# TalentLens: Intelligent Candidate Discovery 🎯
 
-![TalentLens AI Banner](/api/placeholder/1200/400)
+![TalentLens](https://img.shields.io/badge/Status-Hackathon_Ready-success) ![Next.js](https://img.shields.io/badge/Next.js-15-black) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-blue) ![TF-IDF](https://img.shields.io/badge/AI-TF--IDF_Engine-orange)
 
-**An ultimate AI recruiter built for the Data & AI Challenge: Intelligent Candidate Discovery**  
-*Part of INDIA.RUNS hosted by Hack2Skill and Redrob.*
+**TalentLens** is a next-generation AI recruitment platform built for the **INDIA.RUNS Data & AI Challenge** (conducted by Hack2Skill and Redrob). 
 
----
-
-## 🏆 The Challenge
-
-The objective of this challenge is to move beyond traditional, keyword-based recruitment filters. The task is to build a robust, workable Proof of Concept (PoC) that acts as the ultimate AI recruiter—capable of deep job understanding, contextual relevance, and multi-signal integration.
-
-TalentLens AI answers this challenge by delivering a **lightning-fast, highly accurate, and expertly ranked shortlist of the best-fit candidates.**
+It moves beyond simple keyword matching, utilizing a custom TF-IDF semantic NLP engine to intelligently analyze, map, and rank candidate profiles against complex job descriptions in milliseconds.
 
 ---
 
-## ✨ Features & Capabilities
+## 🌟 The Challenge & The Solution
 
-TalentLens AI doesn't just match strings; it understands context, trajectory, and behavior.
+**The Problem:** Traditional applicant tracking systems rely heavily on exact keyword matches. This leads to great candidates being overlooked simply because they used synonymous terms, or because the recruiter couldn't effectively weight the importance of different skills.
 
-### 🧠 1. Deep Job Understanding (NLP Parser)
-- **Beyond Keywords:** Extracts required skills, preferred skills, seniority levels, management requirements, education preferences, and soft skills using an advanced tokenizer.
-- **Implicit Skill Inference:** Utilizes a custom **Skill Adjacency Graph** to map relationships between technologies (e.g., granting partial credit for `JavaScript` if a candidate knows `TypeScript` or `React`).
-- **Synonym Normalization:** Maps over 100 industry synonyms (e.g., `k8s` → `kubernetes`, `aws` → `amazon web services`) to prevent missed matches due to terminology differences.
-
-### 🎯 2. Contextual Relevance (TF-IDF Semantic Engine)
-- **Global Context:** Builds a Term Frequency-Inverse Document Frequency (TF-IDF) vector across the entire candidate pool.
-- **Semantic Similarity:** Computes cosine similarity between the parsed job requirements and the candidate's entire corpus (headline, summary, and experience), acting as a powerful contextual multiplier.
-- **Dynamic Role Weighting:** Automatically adjusts scoring weights based on the job archetype (e.g., DevOps roles weight infrastructure skills higher; management roles weight cultural fit and leadership higher).
-
-### 📈 3. Signal Integration & Trajectory Scoring
-- **Experience Recency:** Heavily weights skills and experiences from the candidate's most recent roles.
-- **Behavioral Signals:** Integrates 14 distinct activity signals (e.g., "Hackathon Winner", "Mentoring Activity", "High Response Rate", "Patent Filed") to score passive and active candidates.
-- **Career Trajectory:** Analyzes title progression and tenure stability to determine if a candidate has a "Strong upward trajectory" or "Steady growth."
-
-### 🎨 4. Premium UI/UX (The "Wow" Factor)
-- **Glassmorphic Design:** Built with Tailwind CSS v4, featuring a beautiful animated mesh gradient background and layered glass effects.
-- **Multi-Axis Radar Charts:** Visualizes exactly *why* a candidate matched across 5 dimensions: Skills, Experience, Culture, Activity, and Trajectory.
-- **Podium Rankings:** Highlights the top 3 candidates with distinct gold, silver, and bronze glow effects.
-- **AI Explainability:** Generates plain-text "AI Highlights" and "Potential Concerns" for every candidate, showing the recruiter exactly what the engine found.
+**The TalentLens Solution:**
+We built a robust, workable Proof of Concept that acts as the ultimate AI recruiter.
+1. **Deep Job Understanding:** Parses unstructured job descriptions to identify required vs. preferred skills, seniority, and management requirements.
+2. **Contextual Relevance:** Employs a custom Natural Language Processing (NLP) pipeline featuring a TF-IDF (Term Frequency-Inverse Document Frequency) scoring algorithm and a Skill Adjacency Graph (e.g., recognizing that a candidate with "React" possesses highly relevant skills for a "Next.js" role).
+3. **Signal Integration:** Analyzes career trajectory, total experience, education, and skill weights to generate a comprehensive, multidimensional match score.
+4. **Soulful Editorial UI:** Wraps this immensely powerful engine in a breathtaking, sophisticated, and deeply human interface designed with Instrument Serif and warm stone tones, breaking away from the cold, clinical feel of standard enterprise software.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## ⚙️ Technical Architecture
 
-This project was built with a modern, high-performance web stack:
-
-- **Framework:** [Next.js](https://nextjs.org/) (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **Database:** PostgreSQL (via [Drizzle ORM](https://orm.drizzle.team/))
-- **NLP/AI Layer:** Custom TypeScript TF-IDF and Graph-based inference engine (`src/lib/engine`)
-- **Data Seeding:** Generates 100 highly realistic candidates across 12 tech archetypes (`src/lib/seed`)
+- **Frontend:** Next.js 15 (App Router), React 19, Tailwind CSS v4.
+- **Backend/API:** Next.js Serverless Route Handlers.
+- **Database:** PostgreSQL (hosted on Supabase) utilizing Drizzle ORM for extreme type-safety.
+- **AI/NLP Engine (Custom Built):**
+  - `job-parser.ts`: Extracts weighted entities from raw text.
+  - `tokenizer.ts`: Stems and normalizes technical vocabulary.
+  - `skill-graph.ts`: Calculates relational proximity between adjacent technologies.
+  - `ranker.ts`: The core TF-IDF vector math engine that scores candidates across 5 dimensions (Skills, Experience, Culture, Activity, Trajectory).
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started Locally
 
-### Prerequisites
+### 1. Prerequisites
 - Node.js (v18+)
-- PostgreSQL database running locally
+- A free [Supabase](https://supabase.com/) account for PostgreSQL.
 
-### 1. Clone & Install
-```bash
-git clone https://github.com/yourusername/intelligent-candidate-ranking-system.git
-cd intelligent-candidate-ranking-system
-npm install
-```
-
-### 2. Configure Database
-Create a `.env.local` file in the root directory and add your PostgreSQL connection string:
+### 2. Environment Setup
+Create a `.env.local` file in the root directory and add your Supabase connection string:
 ```env
-DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:5432/app_db"
+DATABASE_URL="postgresql://postgres.your_id:your_password@aws-0-region.pooler.supabase.com:6543/postgres"
 ```
 
-*Note: Ensure your local PostgreSQL instance is running and the database `app_db` exists.*
-
-### 3. Initialize & Run
-Push the database schema using Drizzle:
+### 3. Install & Initialize
 ```bash
+npm install
 npx drizzle-kit push
 ```
 
-Start the development server:
+### 4. Run the Engine
 ```bash
 npm run dev
 ```
-
-### 4. Seed the Database
-Open the application at `http://localhost:3000`. Click the **"🚀 Seed Database"** button to instantly generate 100 realistic, highly detailed candidate profiles with complete career histories and behavioral signals.
+Open `http://localhost:3000`. Click the **Seed Database** button to automatically generate 100 deep, highly realistic candidate profiles into your Supabase instance, creating the corpus necessary for the TF-IDF engine to function.
 
 ---
 
-## 💡 How to use the PoC
+## 🎨 UI/UX Philosophy
 
-1. **Load a Job Description:** Use one of the "Quick Load Examples" or paste your own job description.
-2. **AI Analysis:** The engine will instantly parse the description, extracting required skills, preferred skills, seniority, and industry focus.
-3. **Review Matches:** The top candidates will be ranked instantly.
-4. **Deep Dive:** Click on any candidate to open the Modal. View their multi-axis Radar Chart, read the AI's highlights and concerns, and review their skill heatmap and career timeline.
+Recruitment is fundamentally about people. We consciously rejected the "dark mode cyber-brutalist" trend common in AI tools today. Instead, TalentLens employs a **"Soulful Editorial"** aesthetic:
+- **Typography:** `Instrument Serif` for an elegant, humanistic touch, paired with `Inter` for dense data readability.
+- **Palette:** Warm ivory backgrounds (`stone-50`) with deep charcoal accents, avoiding the harshness of pure `#FFF` or `#000`.
+- **Micro-interactions:** Soft, floating components and pill-shaped elements that invite interaction without overwhelming the user.
 
 ---
 
-## 🤝 Contribution & Acknowledgements
-
-Built for the **INDIA.RUNS** hackathon.
-Hosted by **Hack2Skill** and **Redrob AI**.
-
-*"Unleashing innovation to find the hidden gems in talent acquisition."*
+*Built with ❤️ for the Hack2Skill & Redrob Data & AI Challenge.*

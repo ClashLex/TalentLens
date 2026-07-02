@@ -1,77 +1,51 @@
-# Project Setup & Deployment Guide
+# Deployment & GitHub Guide
 
-You have successfully added your Supabase `DATABASE_URL` to the `.env.local` file! Here is the complete step-by-step process to get your database initialized, the app running locally, and finally, how to push it to GitHub.
-
----
-
-## Part 1: Getting the App Working Locally
-
-Now that your Supabase connection string is securely in `.env.local`, follow these steps:
-
-### 1. Push the Database Schema
-You need to tell Supabase what your database tables look like. Drizzle ORM handles this automatically.
-Open your terminal in the project folder and run:
-```bash
-npx drizzle-kit push
-```
-*If this succeeds, you will see a message confirming the `candidates` table was pushed to your database.*
-
-### 2. Start the Development Server
-Run the following command to start the Next.js app:
-```bash
-npm run dev
-```
-
-### 3. Seed the Database
-1. Open your browser and go to `http://localhost:3000`.
-2. You will see the new Soulful Editorial UI.
-3. Click the **"Seed Database"** button. This will connect to your Supabase instance and generate 100 highly realistic candidate profiles.
-4. Once it finishes, the app is fully functional! You can start entering job descriptions to see the AI ranking engine at work.
+This guide will walk you through pushing your completed TalentLens project to GitHub and making it "live" on the internet using Vercel.
 
 ---
 
-## Part 2: Pushing to GitHub
+## 1. Pushing to GitHub
 
-Now that the project is working, it's time to save your code to GitHub.
+Now that the app is working locally and connected to your Supabase database, it's time to back up your code to GitHub.
 
-### 1. Initialize Git (If you haven't already)
-If this project isn't already a Git repository, initialize it:
-```bash
-git init
-```
+*(Note: We have already added `.env.local` and `work.md` to your `.gitignore` file, so your database passwords and these instructions will remain safely on your computer and will NOT be uploaded to the public internet!)*
 
-### 2. Ensure Secrets are Protected
-**CRITICAL:** Never push your `.env.local` file to GitHub!
-Double-check that you have a file named `.gitignore` in your project folder, and ensure it contains these lines:
-```
-.env
-.env.local
-.env.*.local
-node_modules/
-.next/
-```
-*(Next.js includes this by default, so you should be safe).*
+1. Open a new terminal in your project folder.
+2. Initialize Git (if not already done):
+   ```bash
+   git init
+   ```
+3. Stage all your files:
+   ```bash
+   git add .
+   ```
+4. Commit your changes:
+   ```bash
+   git commit -m "feat: complete Hackathon submission with Supabase integration"
+   ```
+5. Go to [GitHub.com](https://github.com/) and create a **New Repository** (e.g., `talentlens-ai`). **Do not** add a README or .gitignore from the GitHub interface.
+6. Copy the commands GitHub provides under *"…or push an existing repository from the command line"* and paste them into your terminal. They look like this:
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/talentlens-ai.git
+   git branch -M main
+   git push -u origin main
+   ```
 
-### 3. Commit Your Code
-Run these commands to stage and commit your beautiful new UI and AI engine upgrades:
-```bash
-git add .
-git commit -m "feat: complete UI overhaul and semantic AI ranking engine integration"
-```
+Your code is now safely on GitHub!
 
-### 4. Create a GitHub Repository
-1. Go to [GitHub.com](https://github.com/) and click **New Repository**.
-2. Name it (e.g., `talentlens-ai`).
-3. Keep it Public or Private (your choice).
-4. Do **NOT** check "Add a README file" (we already made an awesome one).
-5. Click **Create repository**.
+---
 
-### 5. Push Your Code
-GitHub will give you a block of code under the heading *"…or push an existing repository from the command line"*. Copy and paste those commands into your terminal. It will look like this:
-```bash
-git remote add origin https://github.com/YOUR_USERNAME/talentlens-ai.git
-git branch -M main
-git push -u origin main
-```
+## 2. Making It Live (Deploying to Vercel)
 
-🎉 **Congratulations!** Your codebase is now safely backed up on GitHub and fully connected to a live Supabase database!
+Next.js apps are easiest to deploy on **Vercel** (the company that created Next.js). It's completely free.
+
+1. Go to [Vercel.com](https://vercel.com/) and sign up or log in using your GitHub account.
+2. Click **Add New...** -> **Project**.
+3. You will see a list of your GitHub repositories. Find the one you just created (`talentlens-ai`) and click **Import**.
+4. In the configuration screen, leave everything as default (Framework: Next.js), but open the **Environment Variables** section.
+5. You need to add your Supabase connection string here so the live site can talk to your database!
+   - **Key:** `DATABASE_URL`
+   - **Value:** Paste your actual Supabase URL here (the one from your `.env.local` file).
+6. Click **Deploy**.
+
+Vercel will now build your application. This usually takes about 1-2 minutes. Once it's done, you will be given a live URL (e.g., `https://talentlens-ai.vercel.app`) that you can share with the hackathon judges!

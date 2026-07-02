@@ -47,7 +47,7 @@ export function StatsBar({ stats, seeded, seeding, onSeed }: StatsBarProps) {
           <button
             onClick={onSeed}
             disabled={seeding}
-            className="editorial-button"
+            className="editorial-button-outline"
           >
             {seeding ? "Generating Data..." : "Seed Database"}
           </button>

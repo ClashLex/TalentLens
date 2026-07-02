@@ -34,6 +34,9 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  background-image: radial-gradient(var(--color-primary-300) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0;
 }
 
 @layer utilities {
@@ -47,6 +50,10 @@ body {
   
   .editorial-button {
     @apply bg-primary-900 text-white font-medium px-8 py-3.5 rounded-full shadow-sm hover:bg-primary-800 hover:shadow-md active:scale-[0.98] transition-all;
+  }
+  
+  .editorial-button-outline {
+    @apply bg-transparent text-primary-900 font-medium px-8 py-3.5 rounded-full border border-primary-300 hover:border-primary-500 hover:bg-primary-50 active:scale-[0.98] transition-all;
   }
   
   .editorial-input {
